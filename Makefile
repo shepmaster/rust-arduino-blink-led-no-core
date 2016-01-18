@@ -1,7 +1,7 @@
 all: hello.hex
 
 hello.o: hello.rs
-	rustc --target avr-atmel-none -C target-cpu=atmega328p --emit=obj $< -o $@
+	rustc -O --target avr-atmel-none -C target-cpu=atmega328p --emit=obj $< -o $@
 
 # Use GCC to link main function into a complete binary
 hello.elf: hello.o
