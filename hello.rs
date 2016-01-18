@@ -2,6 +2,11 @@
 #![feature(lang_items)]
 #![feature(fundamental)]
 #![feature(intrinsics)]
+#![feature(on_unimplemented)]
+#![feature(optin_builtin_traits)]
+#![feature(reflect)]
+#![feature(unboxed_closures)]
+#![feature(associated_type_defaults)]
 
 #![no_core]
 #![no_main]
@@ -22,23 +27,18 @@ pub extern fn main() {
 
 // All this is copied from libcore
 
-extern "rust-intrinsic" {
-    pub fn volatile_load<T>(src: *const T) -> T;
-    pub fn volatile_store<T>(src: *mut T, value: T);
+use option::Option::*;
+use intrinsics::{volatile_store, volatile_load};
+use ops::*;
+
+#[lang = "panic"]
+pub fn panic(expr_file_line: &(&'static str, &'static str, u32)) -> ! {
+    loop {}
 }
 
-#[lang = "sized"]
-#[fundamental]
-pub trait Sized {}
-
-#[lang = "copy"]
-pub trait Copy : Clone {}
-
-pub trait Clone : Sized {
-    fn clone(&self) -> Self;
-
-    #[inline(always)]
-    fn clone_from(&mut self, source: &Self) {
-        *self = source.clone()
-    }
-}
+mod option;
+mod intrinsics;
+mod clone;
+mod marker;
+mod cmp;
+mod ops;
