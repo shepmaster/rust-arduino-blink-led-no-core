@@ -3,6 +3,11 @@
 This code shows how to blink an LED on the Arduino Uno in the hardest
 possible way.
 
+Make sure to check out the successor project,
+[rust-arduino-blink-led-no-core-with-cargo][next].
+
+[next]: https://github.com/shepmaster/rust-arduino-blink-led-no-core-with-cargo
+
 ## Requirements
 
 * rustc with AVR support
